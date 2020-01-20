@@ -82,23 +82,23 @@
 
             <ul class="nav" id="side-menu">
                 <li style="padding: 70px 0 0;">
-                    <a href="#" class="waves-effect">
+                    <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
-                        Dashboard
+                        Рабочий стол
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('users.index') }}" class="waves-effect">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                        User Management
+                    <a href="{{ route('admin.users.index') }}" class="waves-effect">
+                        <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                        Пользователи
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="waves-effect">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                        Profile
+                    <a href="{{ route('admin.subscription.index') }}" class="waves-effect">
+                        <i class="fa fa-send fa-fw" aria-hidden="true"></i>
+                        Подписки
                     </a>
                 </li>
             </ul>
@@ -109,7 +109,9 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Dashboard</h4>
+                    <h4 class="page-title">
+                        @yield('page-title')
+                    </h4>
                 </div>
 
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">

@@ -1,4 +1,4 @@
-@extends('layouts.less')
+@extends('layouts.app')
 
 @section('content')
     sdfasdfs

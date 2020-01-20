@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Subscription;
+namespace App\Http\Controllers\Admin\Subscription;
 
 use App\Subscription;
 use App\Traits\SubscriptionStore;

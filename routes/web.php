@@ -13,11 +13,20 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware('auth');
+Route::get('/', function() {
+    return redirect()->route('admin.dashboard');
+});
 
-Route::resource('/subscription', 'Subscription\SubscriptionController')
-    ->only(['index', 'store', 'update']);
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
 
-Route::resource('/admin/users', 'UserController');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('/subscription', 'Subscription\SubscriptionController')->only(['index', 'store', 'update']);
+
+    Route::resource('/users', 'UsersController')->only(['index', 'edit', 'update', 'destroy']);
+});

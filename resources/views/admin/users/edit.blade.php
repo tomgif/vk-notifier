@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="col-md-8 col-xs-12">
+    <div class="col-md-4 col-xs-12">
         <div class="white-box">
             <form action="{{ route('admin.users.update', $user->id) }}" class="form-horizontal form-material" method="POST">
                 @method('PATCH')

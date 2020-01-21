@@ -10,41 +10,33 @@
     </li>
 @endsection
 
-
 @section('content')
     <div class="row">
-        <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="white-box">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">{{ __('subscriptions.peer_id') }}</th>
-                            <th class="text-center">{{ __('subscriptions.user_id') }}</th>
-                            <th class="text-center">{{ __('subscriptions.is_subscribed') }}</th>
-                            <th class="text-center">{{ __('subscriptions.description') }}</th>
-                        </tr>
-                    </thead>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="panel">
+                <div class="sk-chat-widgets">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul class="chatonline">
+                                @foreach($subscriptions as $subscription)
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <img src="{{ $subscription->external_fields['photo_50'] }}" alt="user-img" class="img-circle">
 
-                    <tbody>
-                    @foreach($subscriptions as $subscription)
-                    <tr>
-                        <td>{{ $subscription->id }}</td>
-                        <td>{{ $subscription->peer_id }}</td>
-                        <td>{{ $subscription->user_id }}</td>
-                        <td>
-                            @if ($subscription->is_subscribed)
-                                <i class="text-primary fa fa-circle"></i>
-                            @else
-                                <i class="text-danger fa fa-circle-o"></i>
-                            @endif
-                        </td>
-                        <td class="txt-oflo">{{ $subscription->description }}</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                    </table>
+                                            <span>
+                                                {{ $subscription->external_fields['first_name'] }}
+                                                {{ $subscription->external_fields['last_name'] }}
+
+                                                @if($subscription->is_subscribed)
+                                                    <small class="text-success">Подписка активна</small>
+                                                @endif
+                                        </span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

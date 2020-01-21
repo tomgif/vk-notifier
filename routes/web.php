@@ -33,4 +33,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
     Route::resource('/users', 'UsersController')
         ->middleware('can:manage-users')
         ->only(['index', 'edit', 'update', 'destroy']);
+
+    Route::get('/mailing', 'MailingController@send');
 });

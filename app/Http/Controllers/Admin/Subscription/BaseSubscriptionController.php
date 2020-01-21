@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin\Subscription;
 
 use App\Http\Controllers\Controller;
+use VK\Client\VKApiClient;
 
 abstract class BaseSubscriptionController extends Controller
 {
+    protected $vkApiClient = null;
+
     public function __construct()
     {
-        //silence is golden
+        $this->vkApiClient = new VKApiClient;
     }
 }

@@ -75,7 +75,7 @@
                     </span>
 
                     <span class="hide-menu">
-                        Navigation
+                        Меню
                     </span>
                 </h3>
             </div>
@@ -132,10 +132,6 @@
 
             @yield('content')
         </div>
-
-        <footer class="footer text-center">
-            2017 &copy; Ample Admin brought to you by wrappixel.com
-        </footer>
     </div>
 </div>
 

@@ -1,0 +1,17 @@
+{
+    "E-Mail Address": "Email",
+    "Password": "Пароль",
+    "Remember Me": "Запомнить",
+    "Login": "Войти",
+    "Register": "Зарегистрироваться",
+    "Forgot Your Password?": "Забыли пароль",
+    "Name": "Логин",
+    "Confirm Password": "Подтверждение",
+    "Verify Your Email Address": "Подтверждение Email",
+    "A fresh verification link has been sent to your email address.": "На ваш адрес электронной почты была отправлена новая ссылка для подтверждения.",
+    "Before proceeding, please check your email for a verification link.": "Подвердите ваш email для продолжения",
+    "If you did not receive the email": "Если вы не получили письмо",
+    "click here to request another": "нажмите здесь, чтобы запросить другой",
+    "Reset Password": "Сброс пароля",
+    "Send Password Reset Link": "Отправить ссылку для сброса пароля"
+}

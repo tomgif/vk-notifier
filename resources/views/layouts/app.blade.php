@@ -40,8 +40,8 @@
                     </b>
 
                     <span class="hidden-xs">
-                        <img src="https://via.placeholder.com/139x24" alt="home" class="dark-logo"/>
-                        <img src="https://via.placeholder.com/139x24/000000/FFFFFF" alt="home" class="light-logo"/>
+                        <img src="https://via.placeholder.com/140x25" alt="home" class="dark-logo"/>
+                        <img src="https://via.placeholder.com/140x25/000000/FFFFFF" alt="home" class="light-logo"/>
                     </span>
                 </a>
             </div>

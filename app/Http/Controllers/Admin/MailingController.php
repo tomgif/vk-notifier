@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MailingSendRequest;
 use App\Subscription;
 use Illuminate\Support\Arr;
 use VK\Client\VKApiClient;
+use Illuminate\Http\Request;
 
 class MailingController extends Controller
 {
@@ -16,7 +18,7 @@ class MailingController extends Controller
         $this->vkApiClient = new VKApiClient;
     }
 
-    public function send()
+    public function send(MailingSendRequest $request)
     {
         $subscribers = Subscription::where('is_subscribed', true)->pluck('peer_id')->toArray();
 
@@ -26,9 +28,8 @@ class MailingController extends Controller
         ]);
 
         $members = Arr::where($members, function ($user) {
-            if ($user['member'] > 0) {
+            if ($user['member'] > 0)
                 return $user;
-            }
             return false;
         });
 
@@ -36,8 +37,10 @@ class MailingController extends Controller
             $this->vkApiClient->messages()->send(env('VK_API_TOKEN'), [
                 'user_ids' => array_column($members, 'user_id'),
                 'random_id' => rand(),
-                'message' => 'Дратути'
+                'message' => $request->message
             ]);
         }
+
+        return redirect()->back();
     }
 }

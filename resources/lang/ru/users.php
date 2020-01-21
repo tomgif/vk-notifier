@@ -15,5 +15,5 @@ return [
      */
     'manage-users' => 'Пользователи',
     'manage-subscriptions' => 'Подписки',
-    'manage-mailing' => 'Рассылки (пока недоступно)'
+    'manage-mailing' => 'Рассылки'
 ];

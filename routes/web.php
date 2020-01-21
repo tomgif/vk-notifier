@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +36,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         ->middleware('can:manage-users')
         ->only(['index', 'edit', 'update', 'destroy']);
 
-    Route::get('/mailing', 'MailingController@send');
+    Route::post('/mailing', 'MailingController@send')->name('mailing.send');
 });

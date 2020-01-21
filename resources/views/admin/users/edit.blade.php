@@ -65,7 +65,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-success">{{ __('users.update') }}</button>
+                        <button class="btn btn-success pull-right">{{ __('users.update') }}</button>
                     </div>
                 </div>
 

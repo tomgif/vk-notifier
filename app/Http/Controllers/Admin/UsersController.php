@@ -31,38 +31,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        dd(__METHOD__);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        dd(__METHOD__);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        dd(__METHOD__);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\User  $user
@@ -70,10 +38,6 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if (Gate::denies('edit-users')) {
-            return redirect()->route('admin.users.index');
-        }
-
         $roles = Role::all();
 
         return view('admin.users.edit', compact('user', 'roles'));
@@ -90,6 +54,10 @@ class UsersController extends Controller
     {
         $user->roles()->sync($request->roles);
 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
         return redirect()->route('admin.users.index');
     }
 
@@ -102,10 +70,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        if (Gate::denies('delete-users')) {
-            return redirect()->route('admin.users.index');
-        }
-
         $user->roles()->detach();
         $user->delete();
 

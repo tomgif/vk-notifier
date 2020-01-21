@@ -54,11 +54,11 @@
                 </li>
 
                 <li>
-                    <a class="profile-pic" href="#">
+                    <a class="profile-pic" href="{{ route('admin.users.edit', Auth::user()->id) }}">
                         <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
 
                         <b class="hidden-xs">
-                            Steave
+                            {{ Auth::user()->name }}
                         </b>
                     </a>
                 </li>
@@ -84,23 +84,27 @@
                 <li style="padding: 70px 0 0;">
                     <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
-                        Рабочий стол
+                        Панель управления
                     </a>
                 </li>
 
+                @can('manage-users')
                 <li>
                     <a href="{{ route('admin.users.index') }}" class="waves-effect">
                         <i class="fa fa-users fa-fw" aria-hidden="true"></i>
                         Пользователи
                     </a>
                 </li>
+                @endcan
 
+                @can('manage-subscriptions')
                 <li>
-                    <a href="{{ route('admin.subscription.index') }}" class="waves-effect">
+                    <a href="{{ route('admin.subscriptions.index') }}" class="waves-effect">
                         <i class="fa fa-send fa-fw" aria-hidden="true"></i>
                         Подписки
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
     </div>
@@ -116,7 +120,12 @@
 
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}">Панель управления</a>
+                        </li>
+                        @hasSection('navigation')
+                            @yield('navigation')
+                        @endif
                     </ol>
                 </div>
             </div>

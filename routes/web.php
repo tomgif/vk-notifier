@@ -26,7 +26,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('/subscription', 'Subscription\SubscriptionController')->only(['index', 'store', 'update']);
+    Route::resource('/subscriptions', 'Subscription\SubscriptionController')
+        ->middleware('can:manage-subscriptions')
+        ->only(['index', 'store', 'update']);
 
-    Route::resource('/users', 'UsersController')->only(['index', 'edit', 'update', 'destroy']);
+    Route::resource('/users', 'UsersController')
+        ->middleware('can:manage-users')
+        ->only(['index', 'edit', 'update', 'destroy']);
 });

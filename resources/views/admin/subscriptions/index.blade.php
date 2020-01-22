@@ -17,6 +17,7 @@
                 <div class="sk-chat-widgets">
                     <div class="panel panel-default">
                         <div class="panel-body">
+                            @if ($subscriptions)
                             <ul class="chatonline">
                                 @foreach($subscriptions as $subscription)
                                     <li>
@@ -35,6 +36,9 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            @else
+                                Подписки отсутствуют
+                            @endif
                         </div>
                     </div>
                 </div>

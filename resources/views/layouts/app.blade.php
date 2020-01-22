@@ -54,6 +54,7 @@
                 </li>
 
                 <li>
+                    @can('manage-users')
                     <a class="profile-pic" href="{{ route('admin.users.edit', Auth::user()->id) }}">
                         <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
 
@@ -61,6 +62,15 @@
                             {{ Auth::user()->name }}
                         </b>
                     </a>
+                    @else
+                        <a class="profile-pic" href="javascript:void(0);">
+                            <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
+
+                            <b class="hidden-xs">
+                                {{ Auth::user()->name }}
+                            </b>
+                        </a>
+                    @endcan
                 </li>
             </ul>
         </div>

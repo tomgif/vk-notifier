@@ -16,11 +16,11 @@ class Bot
     public function communicate(Subscriber $subscriber)
     {
         $keyboard = new Keyboard;
-        $keyboard->setInline();
 
         if ($subscriber->isSubscribed()) {
             //$keyboard->setSecondaryButton(__('keyboard.unsubscribe'), ['command' => 'unsubscribe']);
         } else {
+            $keyboard->setInline();
             $keyboard->setPositiveButton(__('keyboard.subscribe'), ['command' => 'subscribe']);
         }
 

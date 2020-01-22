@@ -23,6 +23,7 @@ class Keyboard
     public function setInline()
     {
         $this->keyboard['inline'] = true;
+        return $this;
     }
 
     protected function setButton(string $label, string $color = 'primary', array $payload = null, string $type = 'text')

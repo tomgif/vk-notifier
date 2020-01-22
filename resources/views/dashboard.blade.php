@@ -27,14 +27,14 @@
                                     </div>
                                 </div>
 
-                                {{--<div class="form-group">
+                                <div class="form-group">
                                     <input type="file"
                                            name="image"
                                            multiple
                                            data-allow-reorder="true"
                                            data-max-file-size="3MB"
                                            data-max-files="3">
-                                </div>--}}
+                                </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-12">

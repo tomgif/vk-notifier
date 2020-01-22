@@ -14,7 +14,7 @@ class MailingController extends Controller
     public function send(MailingSendRequest $request)
     {
         $vkApiClient = new VKApiClient;
-        /*$attachment = [];
+        $attachments = [];
 
         if ($request->file('image')) {
             $messagesUploadServer = $vkApiClient->photos()->getMessagesUploadServer(env('VK_API_TOKEN'));
@@ -22,19 +22,22 @@ class MailingController extends Controller
             $uploadUrl = $messagesUploadServer['upload_url'];
 
             if ($uploadUrl) {
-
-                $response = (new Client)->post($uploadUrl, [
+                $vkResponse = (new Client)->request('POST', $uploadUrl, [
                     'multipart' => [
                         [
-                            'name' => $request->file('image')->getClientOriginalName(),
-                            'contents' => file_get_contents($request->file('image'))
+                            'name' => 'photo',
+                            'contents' => fopen($request->file('image')->getPathname(), 'r'),
+                            'filename' => $request->file('image')->getClientOriginalName()
                         ]
                     ]
-                ]);
+                ])->getBody()->getContents();
 
-                dd($response->getBody()->getContents());
+                $uploadedImage = $vkApiClient->photos()->saveMessagesPhoto(env('VK_API_TOKEN'), json_decode($vkResponse, true));
+                foreach ($uploadedImage as $image) {
+                    $attachments[] = 'photo' . $image['owner_id'] . '_' . $image['id'];
+                }
             }
-        }*/
+        }
 
         $subscribers = Subscription::where('is_subscribed', true)->pluck('peer_id')->toArray();
 
@@ -54,7 +57,8 @@ class MailingController extends Controller
             $vkApiClient->messages()->send(env('VK_API_TOKEN'), [
                 'user_ids' => array_column($members, 'user_id'),
                 'random_id' => rand(),
-                'message' => $request->message
+                'message' => $request->message,
+                'attachment' => implode(',', $attachments)
             ]);
         }
 

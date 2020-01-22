@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <form action="{{ route('admin.mailing.send') }}" class="form-horizontal form-material" method="POST">
+                            <form action="{{ route('admin.mailing.send') }}" class="form-horizontal form-material" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
@@ -27,12 +27,33 @@
                                     </div>
                                 </div>
 
+                                {{--<div class="form-group">
+                                    <input type="file"
+                                           name="image"
+                                           multiple
+                                           data-allow-reorder="true"
+                                           data-max-file-size="3MB"
+                                           data-max-files="3">
+                                </div>--}}
+
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button class="btn btn-success pull-right">Отправить</button>
                                     </div>
                                 </div>
+
                             </form>
+
+                            <link href="{{ asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
+                            <script src="{{ asset('ample/plugins/filepond/filepond.min.js') }}"></script>
+
+                            <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
+                            <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+
+                            <script>
+                                //FilePond.registerPlugin(FilePondPluginImagePreview);
+                                //FilePond.create(document.querySelector('input[type=file]'));
+                            </script>
                         </div>
                     </div>
                 </div>

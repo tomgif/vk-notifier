@@ -37,8 +37,6 @@ class VKCallbackController extends BaseApiController
                             $invoker->submit($unsubscribeCommand);
                             break;
                     }
-                } else {
-                    Log::info('сообщение');
                 }
 
                 (new Bot)->communicate($subscriber);

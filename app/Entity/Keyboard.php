@@ -14,6 +14,17 @@ class Keyboard
         $this->keyboard['buttons'] = [];
     }
 
+    public function setOneTime()
+    {
+        $this->keyboard['one_time'] = true;
+        return $this;
+    }
+
+    public function setInline()
+    {
+        $this->keyboard['inline'] = true;
+    }
+
     protected function setButton(string $label, string $color = 'primary', array $payload = null, string $type = 'text')
     {
         if (!$label) {

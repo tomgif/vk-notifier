@@ -26,8 +26,7 @@ class MailingSendRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required',
-            //'image' => 'file'
+            'message' => 'required'
         ];
     }
 }

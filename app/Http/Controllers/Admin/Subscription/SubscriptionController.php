@@ -6,10 +6,18 @@ use App\Subscription;
 use App\Traits\SubscriptionStore;
 use App\Traits\SubscriptionUpdate;
 use Illuminate\Support\Arr;
+use VK\Client\VKApiClient;
 
 class SubscriptionController extends BaseSubscriptionController
 {
     use SubscriptionStore, SubscriptionUpdate;
+
+    protected $vkApiClient = null;
+
+    public function __construct(VKApiClient $vkApiClient)
+    {
+        $this->vkApiClient = $vkApiClient;
+    }
 
     /**
      * Display a listing of the resource.

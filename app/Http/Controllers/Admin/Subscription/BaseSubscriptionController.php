@@ -7,10 +7,4 @@ use VK\Client\VKApiClient;
 
 abstract class BaseSubscriptionController extends Controller
 {
-    protected $vkApiClient = null;
-
-    public function __construct()
-    {
-        $this->vkApiClient = new VKApiClient;
-    }
 }

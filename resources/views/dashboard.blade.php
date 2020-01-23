@@ -29,7 +29,7 @@
 
                                 <div class="form-group">
                                     <input type="file"
-                                           name="image"
+                                           name="images[]"
                                            multiple
                                            data-allow-reorder="true"
                                            data-max-file-size="3MB"
@@ -51,8 +51,8 @@
                             <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
 
                             <script>
-                                //FilePond.registerPlugin(FilePondPluginImagePreview);
-                                //FilePond.create(document.querySelector('input[type=file]'));
+                                FilePond.registerPlugin(FilePondPluginImagePreview);
+                                FilePond.create(document.querySelector('input[type=file]'));
                             </script>
                         </div>
                     </div>

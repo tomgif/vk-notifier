@@ -29,7 +29,7 @@
 
                                 <div class="form-group">
                                     <input type="file"
-                                           name="images[]"
+                                           name="files[]"
                                            multiple
                                            data-allow-reorder="true"
                                            data-max-file-size="3MB"
@@ -52,6 +52,15 @@
 
                             <script>
                                 FilePond.registerPlugin(FilePondPluginImagePreview);
+                                FilePond.setOptions({
+                                    server: '{{ route('api.upload') }}',
+                                    labelIdle: 'Перетащите или <span class="filepond--label-action"> Выберите </span> файлы',
+                                    labelFileProcessing: 'Загрузка',
+                                    labelFileProcessingComplete: 'Загрузка заверешена',
+                                    labelTapToCancel: 'отменить',
+                                    labelTapToUndo: 'удалить',
+                                    //todo: localize and move to lang
+                                });
                                 FilePond.create(document.querySelector('input[type=file]'));
                             </script>
                         </div>

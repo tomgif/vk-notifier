@@ -92,7 +92,7 @@
 
             <ul class="nav" id="side-menu">
                 <li style="padding: 70px 0 0;">
-                    <a href="{{ route('admin.dashboard') }}" class="waves-effect">
+                    <a href="{{ route('admin.dashboard.index') }}" class="waves-effect">
                         <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
                         Панель управления
                     </a>
@@ -131,7 +131,7 @@
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{ route('admin.dashboard') }}">Панель управления</a>
+                            <a href="{{ route('admin.dashboard.index') }}">Панель управления</a>
                         </li>
                         @hasSection('navigation')
                             @yield('navigation')

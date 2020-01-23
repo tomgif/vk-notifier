@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,17 +17,15 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function() {
-    return redirect()->route('admin.dashboard');
+    return redirect()->route('admin.dashboard.index');
 });
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard.index');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::resource('/dashboard', 'DashboardController')->only(['index']);
 
     Route::resource('/subscriptions', 'Subscription\SubscriptionController')
         ->middleware('can:manage-subscriptions')

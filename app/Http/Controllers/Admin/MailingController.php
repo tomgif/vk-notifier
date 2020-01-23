@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MailingSendRequest;
-use App\Services\ImageUploadService;
 use App\Subscription;
 use Illuminate\Support\Arr;
 use VK\Client\VKApiClient;
@@ -14,9 +13,8 @@ class MailingController extends Controller
     protected $imageUploadService = null;
     protected $vkApiClient = null;
 
-    public function __construct(ImageUploadService $imageUploadService, VKApiClient $vkApiClient)
+    public function __construct(VKApiClient $vkApiClient)
     {
-        $this->imageUploadService = $imageUploadService;
         $this->vkApiClient = $vkApiClient;
     }
 
@@ -24,17 +22,10 @@ class MailingController extends Controller
     {
         $attachments = [];
 
-        if ($images = $request->file('images')) {
-            if (is_array($images)) {
-                foreach ($images as $image) {
-                    $uploadedImages[] = $this->imageUploadService->process($image)[0];
-                }
-            } else {
-                $uploadedImages[] = $this->imageUploadService->process($images)[0];
-            }
-
-            foreach ($uploadedImages as $uploadedImageImage) {
-                $attachments[] = 'photo' . $uploadedImageImage['owner_id'] . '_' . $uploadedImageImage['id'];
+        if ($request->files) {
+            foreach ($request->input('files') as $file) {
+                $uploadedImage = json_decode($file, true)[0];
+                $attachments[] = 'photo' . $uploadedImage['owner_id'] . '_' . $uploadedImage['id'];
             }
         }
 

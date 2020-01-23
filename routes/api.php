@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::post('catch', 'Api\VKCallbackController@catch');
+Route::post('upload', 'Api\FileUploadController@uploadFile2VK')->name('api.upload');

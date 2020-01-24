@@ -16,6 +16,10 @@
             <div class="panel">
                 <div class="sk-chat-widgets">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Подписчиков: {{ count($subscriptions->where('is_subscribed', true)) }}
+                        </div>
+
                         <div class="panel-body">
                             @if ($subscriptions)
                             <ul class="chatonline row">

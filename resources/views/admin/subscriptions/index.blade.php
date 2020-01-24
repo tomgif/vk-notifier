@@ -12,15 +12,15 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-sm-12">
             <div class="panel">
                 <div class="sk-chat-widgets">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             @if ($subscriptions)
-                            <ul class="chatonline">
+                            <ul class="chatonline row">
                                 @foreach($subscriptions as $subscription)
-                                    <li>
+                                    <li class="col-sm-3">
                                         <a href="javascript:void(0)">
                                             <img src="{{ $subscription->external_fields['photo_50'] }}" alt="user-img" class="img-circle">
 

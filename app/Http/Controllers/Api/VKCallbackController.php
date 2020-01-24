@@ -15,31 +15,36 @@ class VKCallbackController extends BaseApiController
                 return env('VK_API_AUTH_STRING');
 
             case 'message_new':
+
+
                 $subscriber = (new Subscriber)
                     ->setExternalId($this->event['object']['id'])
                     ->setPeerId($this->event['object']['peer_id'])
                     ->setUserId($this->event['object']['from_id']);
 
-                if (in_array('payload', array_keys($this->event['object']))) {
+                if ($subscriber->getPeerId() < env('VK_CONVERSATION_START_ID')) {
 
-                    $payload = json_decode($this->event['object']['payload'], true);
+                    if (in_array('payload', array_keys($this->event['object']))) {
 
-                    $invoker = new Bot\Invoker;
+                        $payload = json_decode($this->event['object']['payload'], true);
 
-                    switch ($payload['command']) {
-                        case 'subscribe':
-                            $subscribeCommand = new Bot\SubscribeCommand($subscriber);
-                            $invoker->submit($subscribeCommand);
-                            break;
+                        $invoker = new Bot\Invoker;
 
-                        case 'unsubscribe':
-                            $unsubscribeCommand = new Bot\UnsubscribeCommand($subscriber);
-                            $invoker->submit($unsubscribeCommand);
-                            break;
+                        switch ($payload['command']) {
+                            case 'subscribe':
+                                $subscribeCommand = new Bot\SubscribeCommand($subscriber);
+                                $invoker->submit($subscribeCommand);
+                                break;
+
+                            case 'unsubscribe':
+                                $unsubscribeCommand = new Bot\UnsubscribeCommand($subscriber);
+                                $invoker->submit($unsubscribeCommand);
+                                break;
+                        }
                     }
-                }
 
-                (new Bot)->communicate($subscriber);
+                    (new Bot)->communicate($subscriber);
+                }
 
                 break;
         }

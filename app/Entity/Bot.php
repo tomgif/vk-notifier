@@ -19,7 +19,7 @@ class Bot
         $keyboard->setInline();
 
         if ($subscriber->isSubscribed()) {
-            //$keyboard->setSecondaryButton(__('keyboard.unsubscribe'), ['command' => 'unsubscribe']);
+            $keyboard->setSecondaryButton(__('keyboard.unsubscribe'), ['command' => 'unsubscribe']);
         } else {
             $keyboard->setPositiveButton(__('keyboard.subscribe'), ['command' => 'subscribe']);
         }

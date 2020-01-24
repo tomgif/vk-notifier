@@ -34,8 +34,6 @@ class VKCallbackController extends BaseApiController
                             case 'subscribe':
                                 $subscribeCommand = new Bot\SubscribeCommand($subscriber);
                                 $invoker->submit($subscribeCommand);
-
-                                (new Bot)->communicate($subscriber);
                                 break;
 
                             case 'unsubscribe':
@@ -43,6 +41,8 @@ class VKCallbackController extends BaseApiController
                                 $invoker->submit($unsubscribeCommand);
                                 break;
                         }
+
+                        (new Bot)->communicate($subscriber);
                     }
                 }
 

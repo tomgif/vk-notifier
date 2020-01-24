@@ -16,7 +16,6 @@ class VKCallbackController extends BaseApiController
 
             case 'message_new':
 
-
                 $subscriber = (new Subscriber)
                     ->setExternalId($this->event['object']['id'])
                     ->setPeerId($this->event['object']['peer_id'])
@@ -42,8 +41,9 @@ class VKCallbackController extends BaseApiController
                                 break;
                         }
 
-                        (new Bot)->communicate($subscriber);
                     }
+
+                    (new Bot)->communicate($subscriber);
                 }
 
                 break;

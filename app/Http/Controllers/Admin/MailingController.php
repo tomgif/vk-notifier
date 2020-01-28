@@ -10,7 +10,6 @@ use VK\Client\VKApiClient;
 
 class MailingController extends Controller
 {
-    protected $imageUploadService = null;
     protected $vkApiClient = null;
 
     public function __construct(VKApiClient $vkApiClient)
@@ -22,7 +21,7 @@ class MailingController extends Controller
     {
         $attachments = [];
 
-        if ($request->files) {
+        if ($request->input('files')) {
             foreach ($request->input('files') as $file) {
                 $uploadedImage = json_decode($file, true)[0];
                 $attachments[] = 'photo' . $uploadedImage['owner_id'] . '_' . $uploadedImage['id'];

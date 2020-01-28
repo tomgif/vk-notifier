@@ -10,9 +10,9 @@ trait SubscriptionUpdate
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\SubscriptionRequest  $request
-     * @param  \App\Subscription  $subscription
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\SubscriptionRequest $request
+     * @param \App\Subscription $subscription
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(SubscriptionRequest $request, Subscription $subscription)
     {

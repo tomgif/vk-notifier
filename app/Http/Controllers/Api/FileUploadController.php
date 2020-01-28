@@ -30,4 +30,14 @@ class FileUploadController extends Controller
     {
         return $this->imageUploadService->process($request->file('files')[0]);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function deleteFileFromVK(Request $request)
+    {
+        //may be rollback something
+        return response(['success' => true]);
+    }
 }

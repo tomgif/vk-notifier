@@ -11,15 +11,15 @@
 
     <link href="{{ asset('ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/plugins/bower_components/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/plugins/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/colors/default.css') }}" id="theme" rel="stylesheet">
 
+@stack('head')
+
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="{{ asset('ample/js/html5shiv.js') }}"></script>
+    <script src="{{ asset('ample/js/respond.min.js') }}"></script>
     <![endif]-->
 </head>
 
@@ -115,6 +115,13 @@
                     </a>
                 </li>
                 @endcan
+
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('logout').submit()">
+                        <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
+                        Выход
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -133,9 +140,7 @@
                         <li>
                             <a href="{{ route('admin.dashboard.index') }}">Панель управления</a>
                         </li>
-                        @hasSection('navigation')
-                            @yield('navigation')
-                        @endif
+                        @stack('navigation')
                     </ol>
                 </div>
             </div>
@@ -145,16 +150,18 @@
     </div>
 </div>
 
+<form id="logout" action="{{ route('logout') }}" method="post" style="display: none;">
+    @csrf
+</form>
+
 <script src="{{ asset('ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
 <script src="{{ asset('ample/js/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('ample/js/waves.js') }}"></script>
 <script src="{{ asset('ample/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/counterup/jquery.counterup.min.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-
 <script src="{{ asset('ample/js/custom.min.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/toast-master/js/jquery.toast.js') }}"></script>
+
+@stack('footer')
 </body>
 </html>

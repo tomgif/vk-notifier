@@ -29,6 +29,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard', compact('server'));
+        return view('admin.dashboard');
     }
 }

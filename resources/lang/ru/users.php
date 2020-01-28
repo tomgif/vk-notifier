@@ -15,5 +15,11 @@ return [
      */
     'manage-users' => 'Пользователи',
     'manage-subscriptions' => 'Подписки',
-    'manage-mailing' => 'Рассылки'
+    'manage-mailing' => 'Рассылки',
+
+    'index.title' => 'Управление пользователями',
+    'index.breadcrumb' => 'Управление пользователями',
+
+    'edit.title' => 'Редактирование пользователя #:no',
+    'edit.breadcrumb' => 'Редактирование пользователя'
 ];

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('page-title')
-    Редактирование пользователя #{{ $user->id  }}
+    {{ __('users.edit.title', ['no' => $user->id]) }}
 @endsection
 
-@section('navigation')
+@push('navigation')
     <li class="active">
-        Редактирование пользователя
+        {{ __('users.edit.breadcrumb') }}
     </li>
-@endsection
+@endpush
 
 @section('content')
     <div class="col-md-4 col-xs-12">
@@ -45,6 +45,32 @@
                                 <strong>{{ $errors->first('email') }}</strong>
                             </span>
                         @endif
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-md-12">
+                        {{ __('Password') }}
+                    </label>
+
+                    <div class="col-md-12">
+                        <input id="password" type="password" class="form-control form-control-line{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
+
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>
+                                    {{ $errors->first('password') }}
+                                </strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password-confirm" class="col-md-12">{{ __('Confirm Password') }}</label>
+
+                    <div class="col-md-12">
+                        <input id="password-confirm" type="password" class="form-control form-control-line" name="password_confirmation">
                     </div>
                 </div>
 

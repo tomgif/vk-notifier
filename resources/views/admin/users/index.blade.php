@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('page-title')
-    Управление пользователями
+    {{ __('users.index.title') }}
 @endsection
 
-@section('navigation')
+@push('navigation')
     <li class="active">
-        Управление пользователями
+        {{ __('users.index.breadcrumb') }}
     </li>
-@endsection
+@endpush
 
 @section('content')
     <div class="row">
@@ -45,8 +45,11 @@
                                     </a>
 
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display: inline-block">
-                                        @method('DELETE') @csrf
+                                        @method('DELETE')
+
                                         <button class="btn btn-danger">{{ __('users.delete') }}</button>
+
+                                        @csrf
                                     </form>
                                 </td>
                             </tr>

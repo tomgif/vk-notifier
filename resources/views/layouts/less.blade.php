@@ -11,15 +11,15 @@
 
     <link href="{{ asset('ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/plugins/bower_components/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/plugins/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('ample/css/colors/default.css') }}" id="theme" rel="stylesheet">
 
+@stack('head')
+
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="{{ asset('ample/js/html5shiv.js') }}"></script>
+    <script src="{{ asset('ample/js/respond.min.js') }}"></script>
     <![endif]-->
 </head>
 
@@ -88,10 +88,7 @@
 <script src="{{ asset('ample/js/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('ample/js/waves.js') }}"></script>
 <script src="{{ asset('ample/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/counterup/jquery.counterup.min.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
 
 <script src="{{ asset('ample/js/custom.min.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/toast-master/js/jquery.toast.js') }}"></script>
 </body>
 </html>

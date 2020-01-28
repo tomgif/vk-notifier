@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('page-title')
-    Подписки на рассылку
+    {{ __('subscriptions.index.title') }}
 @endsection
 
-@section('navigation')
+@push('navigation')
     <li class="active">
-        Подписки на рассылку
+        {{ __('subscriptions.index.breadcrumb') }}
     </li>
-@endsection
+@endpush
 
 @section('content')
     <div class="row">
@@ -17,33 +17,42 @@
                 <div class="sk-chat-widgets">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Подписчиков: {{ count($subscriptions->where('is_subscribed', true)) }}
+                            {{
+                                trans_choice(
+                                    'subscriptions.index.subscribers_no',
+                                    count($subscriptions->where('is_subscribed', true)),
+                                    [
+                                        'no' => count($subscriptions->where('is_subscribed', true))
+                                    ]
+                                )
+                            }}
                         </div>
 
-                        <div class="panel-body">
-                            @if ($subscriptions)
-                            <ul class="chatonline row">
-                                @foreach($subscriptions as $subscription)
-                                    <li class="col-sm-3">
-                                        <a href="javascript:void(0)">
-                                            <img src="{{ $subscription->external_fields['photo_50'] }}" alt="user-img" class="img-circle">
+                        @if ($subscriptions)
+                            <div class="panel-body">
+                                <ul class="chatonline row">
+                                    @foreach($subscriptions as $subscription)
+                                        <li class="col-sm-3">
+                                            <a href="javascript:void(0)">
+                                                <img src="{{ $subscription->external_fields['photo_50'] }}"
+                                                     alt="user-img" class="img-circle">
 
-                                            <span>
+                                                <span>
                                                 {{ $subscription->external_fields['first_name'] }}
-                                                {{ $subscription->external_fields['last_name'] }}
+                                                    {{ $subscription->external_fields['last_name'] }}
 
-                                                @if($subscription->is_subscribed)
-                                                    <small class="text-success">Подписка активна</small>
-                                                @endif
+                                                    @if($subscription->is_subscribed)
+                                                        <small class="text-success">
+                                                        {{ __('subscriptions.index.is_subscribed')  }}
+                                                    </small>
+                                                    @endif
                                         </span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            @else
-                                Подписки отсутствуют
-                            @endif
-                        </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

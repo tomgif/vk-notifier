@@ -10,6 +10,7 @@ use VK\Client\VKApiClient;
 
 class MailingController extends Controller
 {
+    protected $imageUploadService = null;
     protected $vkApiClient = null;
 
     public function __construct(VKApiClient $vkApiClient)
@@ -28,23 +29,20 @@ class MailingController extends Controller
             }
         }
 
-        $subscribers = Subscription::where('is_subscribed', true)->pluck('peer_id')->toArray();
+        $subscribers = Subscription::where('is_subscribed', true)
+            ->pluck('peer_id')
+            ->toArray();
 
-        $members = $this->vkApiClient->groups()->isMember(env('VK_API_TOKEN'), [
+        $members = collect($this->vkApiClient->groups()->isMember(env('VK_API_TOKEN'), [
             'group_id' => env('VK_GROUP_ID'),
             'user_ids' => $subscribers
-        ]);
-
-        $members = Arr::where($members, function ($user) {
-            if ($user['member'] > 0) {
-                return $user;
-            }
-            return false;
+        ]))->reject(function ($member) {
+            return !$member['member'];
         });
 
-        if (count($members) > 0) {
+        if ($members->count() > 0) {
             $this->vkApiClient->messages()->send(env('VK_API_TOKEN'), [
-                'user_ids' => array_column($members, 'user_id'),
+                'user_ids' => array_column($members->toArray(), 'user_id'),
                 'random_id' => rand(),
                 'message' => $request->message,
                 'attachment' => implode(',', $attachments)

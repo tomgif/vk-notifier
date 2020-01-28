@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin\Subscription;
 use App\Subscription;
 use App\Traits\SubscriptionStore;
 use App\Traits\SubscriptionUpdate;
-use Illuminate\Support\Arr;
 use VK\Client\VKApiClient;
+use App\Http\Controllers\Controller;
 
-class SubscriptionController extends BaseSubscriptionController
+class SubscriptionController extends Controller
 {
     use SubscriptionStore, SubscriptionUpdate;
 
@@ -22,7 +22,7 @@ class SubscriptionController extends BaseSubscriptionController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \VK\Exceptions\VKApiException
      * @throws \VK\Exceptions\VKClientException
      */
@@ -36,13 +36,9 @@ class SubscriptionController extends BaseSubscriptionController
         ]);
 
         $subscriptions->map(function ($subscription) use ($subscribers) {
-            $subscription->external_fields = Arr::first($subscribers, function ($subscriber) use ($subscription) {
-                if ($subscriber['id'] == $subscription->peer_id) {
-                    return $subscription;
-                }
-                return false;
-            });
-
+            $subscription->external_fields = collect($subscribers)
+                ->where('id', $subscription->peer_id)
+                ->first();
             return $subscription;
         });
 

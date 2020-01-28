@@ -10,7 +10,7 @@ trait SubscriptionStore
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\SubscriptionRequest  $request
+     * @param \App\Http\Requests\SubscriptionRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(SubscriptionRequest $request)

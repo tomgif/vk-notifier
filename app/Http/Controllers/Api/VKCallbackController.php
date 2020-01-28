@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Log;
 
 class VKCallbackController extends BaseApiController
 {
+    /**
+     * Catch VK Callback API event
+     * @return mixed
+     */
     public function catch()
     {
         switch ($this->event['type']) {

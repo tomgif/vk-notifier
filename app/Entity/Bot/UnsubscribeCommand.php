@@ -13,6 +13,7 @@ class UnsubscribeCommand implements Command
 {
     use SubscriptionStore, SubscriptionUpdate;
 
+    /** @var Subscriber|null  */
     protected $subscriber = null;
 
     public function __construct(Subscriber $subscriber)
@@ -20,6 +21,9 @@ class UnsubscribeCommand implements Command
         $this->subscriber = $subscriber;
     }
 
+    /**
+     * Executes command from invoker
+     */
     public function execute(): void
     {
         $subscription = Subscription::where('peer_id', $this->subscriber->getPeerId())

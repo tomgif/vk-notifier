@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MailingSendRequest;
 use App\Subscription;
-use Illuminate\Support\Arr;
 use VK\Client\VKApiClient;
 
 class MailingController extends Controller

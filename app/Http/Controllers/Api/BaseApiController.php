@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class BaseApiController
@@ -19,7 +18,5 @@ abstract class BaseApiController extends Controller
         $event = $request->all();
 
         $this->event = $event;
-
-        //Log::info(print_r($event, true));
     }
 }

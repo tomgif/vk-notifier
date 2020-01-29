@@ -36,5 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-mailing', function ($user) {
             return $user->hasRole('manage-mailing');
         });
+
+        Gate::define('manage-schedules', function ($user) {
+            return $user->hasRole('manage-schedules');
+        });
     }
 }

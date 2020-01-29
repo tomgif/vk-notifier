@@ -21,13 +21,10 @@ Route::get('/', function() {
 });
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('admin.dashboard.index');
-    });
+    Route::resource('/dashboard', 'DashboardController')
+        ->only(['index']);
 
-    Route::resource('/dashboard', 'DashboardController')->only(['index']);
-
-    Route::resource('/subscriptions', 'Subscription\SubscriptionController')
+    Route::resource('/subscriptions', 'SubscriptionController')
         ->middleware('can:manage-subscriptions')
         ->only(['index', 'store', 'update']);
 
@@ -35,5 +32,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         ->middleware('can:manage-users')
         ->only(['index', 'edit', 'update', 'destroy']);
 
-    Route::post('/mailing', 'MailingController@send')->name('mailing.send');
+    Route::post('/mailing', 'MailingController@send')
+        ->middleware('can:manage-mailing')
+        ->name('mailing.send');
+
+    Route::resource('/schedules', 'SchedulesController')
+        ->middleware('can:manage-schedules')
+        ->except(['show']);
 });

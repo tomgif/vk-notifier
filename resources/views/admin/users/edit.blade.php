@@ -67,13 +67,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password-confirm" class="col-md-12">{{ __('Confirm Password') }}</label>
+                    <label for="password-confirm" class="col-md-12">
+                        {{ __('Confirm Password') }}
+                    </label>
 
                     <div class="col-md-12">
                         <input id="password-confirm" type="password" class="form-control form-control-line" name="password_confirmation">
                     </div>
                 </div>
 
+                @can('manage-users')
                 <div class="form-group">
                     <label class="col-sm-12">{{ __('users.roles') }}</label>
                     <div class="col-sm-12">
@@ -88,10 +91,13 @@
                         @endforeach
                     </div>
                 </div>
+                @endcan
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-success pull-right">{{ __('users.update') }}</button>
+                        <button class="btn btn-success pull-right">
+                            {{ __('users.update') }}
+                        </button>
                     </div>
                 </div>
 

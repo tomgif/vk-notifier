@@ -6,6 +6,8 @@ use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -52,7 +54,9 @@ class UsersController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $user->roles()->sync($request->roles);
+        if (Gate::allows('manage-users', Auth::user())) {
+            $user->roles()->sync($request->roles);
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;

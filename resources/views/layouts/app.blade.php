@@ -17,7 +17,7 @@
 
 @stack('head')
 
-    <!--[if lt IE 9]>
+<!--[if lt IE 9]>
     <script src="{{ asset('ample/js/html5shiv.js') }}"></script>
     <script src="{{ asset('ample/js/respond.min.js') }}"></script>
     <![endif]-->
@@ -48,20 +48,21 @@
 
             <ul class="nav navbar-top-links navbar-right pull-right">
                 <li>
-                    <a class="nav-toggler open-close waves-effect waves-light hidden-md hidden-lg" href="javascript:void(0)">
+                    <a class="nav-toggler open-close waves-effect waves-light hidden-md hidden-lg"
+                       href="javascript:void(0)">
                         <i class="fa fa-bars"></i>
                     </a>
                 </li>
 
                 <li>
                     @can('manage-users')
-                    <a class="profile-pic" href="{{ route('admin.users.edit', Auth::user()->id) }}">
-                        <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
+                        <a class="profile-pic" href="{{ route('admin.users.edit', Auth::user()->id) }}">
+                            <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
 
-                        <b class="hidden-xs">
-                            {{ Auth::user()->name }}
-                        </b>
-                    </a>
+                            <b class="hidden-xs">
+                                {{ Auth::user()->name }}
+                            </b>
+                        </a>
                     @else
                         <a class="profile-pic" href="javascript:void(0);">
                             <img src="https://via.placeholder.com/128" alt="user-img" width="36" class="img-circle">
@@ -99,25 +100,35 @@
                 </li>
 
                 @can('manage-users')
-                <li>
-                    <a href="{{ route('admin.users.index') }}" class="waves-effect">
-                        <i class="fa fa-users fa-fw" aria-hidden="true"></i>
-                        Пользователи
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('admin.users.index') }}" class="waves-effect">
+                            <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                            Пользователи
+                        </a>
+                    </li>
                 @endcan
 
                 @can('manage-subscriptions')
-                <li>
-                    <a href="{{ route('admin.subscriptions.index') }}" class="waves-effect">
-                        <i class="fa fa-send fa-fw" aria-hidden="true"></i>
-                        Подписки
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('admin.subscriptions.index') }}" class="waves-effect">
+                            <i class="fa fa-send fa-fw" aria-hidden="true"></i>
+                            Подписки
+                        </a>
+                    </li>
+                @endcan
+
+                @can('manage-subscriptions')
+                    <li>
+                        <a href="{{ route('admin.schedules.index') }}" class="waves-effect">
+                            <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+                            Расписание
+                        </a>
+                    </li>
                 @endcan
 
                 <li>
-                    <a href="javascript:void(0)" class="waves-effect" onclick="document.getElementById('logout').submit()">
+                    <a href="javascript:void(0)" class="waves-effect"
+                       onclick="document.getElementById('logout').submit()">
                         <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
                         Выход
                     </a>

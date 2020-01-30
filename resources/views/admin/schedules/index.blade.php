@@ -4,11 +4,11 @@
     {{ __('schedules.index.heading') }}
 @endsection
 
-@section('navigation')
+@push('navigation')
     <li class="active">
         {{ __('schedules.index.breadcrumb') }}
     </li>
-@endsection
+@endpush
 
 @section('content')
     @include('partials.messages')
@@ -21,22 +21,25 @@
                         <a href="{{ route('admin.schedules.create') }}"
                            class="btn btn-primary waves-effect waves-light">
                             <i class="fa fa-plus m-r-5"></i>
-                            Создать отложенную рассылку
+                            {{ __('schedules.index.create.schedule') }}
                         </a>
                     </div>
                 </div>
 
-                <div class="panel-body">
-                    <div class="comment-center">
-                        @if ($schedules)
+                @if ($schedules->count())
+                    <div class="panel-body">
+                        <div class="comment-center">
                             @foreach($schedules as $schedule)
                                 <div class="comment-body">
                                     <div class="mail-content" style="padding-left: 0;">
-                                        <h5>{{ $schedule->name }}</h5>
+                                        <h5>
+                                            {{ $schedule->name }}
+                                        </h5>
 
-                                        <span class="time">{{ $schedule->when }}</span>
-
-                                        <br>
+                                        <span class="time">
+                                            {!! $schedule->formattedWhen() !!} - {{ __('schedules.index.author') }}:
+                                            <strong>{{ $schedule->user->name }}</strong>
+                                        </span>
 
                                         <span class="mail-desc">
                                             {{ $schedule->message }}
@@ -45,36 +48,39 @@
                                         <a href="javascript:void(0);"
                                            class="btn btn btn-rounded btn-default btn-outline m-r-5">
                                             <i class="fa fa-check text-success"></i>
+                                            <span class="m-l-5">
+                                                {{ __('schedules.index.send') }}
+                                            </span>
                                         </a>
 
                                         <a href="{{ route('admin.schedules.edit', $schedule->id) }}"
                                            class="btn btn btn-rounded btn-default btn-outline m-r-5">
                                             <i class="fa fa-pencil text-info"></i>
+                                            {{ __('schedules.index.edit') }}
                                         </a>
 
                                         <a href="javascript:void(0);" class="btn-rounded btn btn-default btn-outline"
-                                            onclick="document.getElementById('delete-schedule-{{ $schedule->id }}').submit()">
+                                           onclick="document.getElementById('delete-schedule-{{ $schedule->id }}').submit()">
                                             <i class="fa fa-close text-danger"></i>
+                                            {{ __('schedules.index.delete') }}
                                         </a>
 
-                                        <form id="delete-schedule-{{ $schedule->id }}" action="{{ route('admin.schedules.destroy', $schedule->id) }}" method="post">
+                                        <form id="delete-schedule-{{ $schedule->id }}"
+                                              action="{{ route('admin.schedules.destroy', $schedule->id) }}"
+                                              method="post">
                                             @csrf @method('DELETE')
                                         </form>
                                     </div>
                                 </div>
                             @endforeach
-                        @else
-                            Нет запланированных рассылок
-                        @endif
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 
-        @if ($schedules->hasMorePages())
-            <div class="text-center">
-                {{ $schedules->links() }}
-            </div>
-        @endif
+        <div class="text-center">
+            {{ $schedules->links() }}
+        </div>
     </div>
 @endsection

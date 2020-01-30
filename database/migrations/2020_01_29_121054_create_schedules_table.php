@@ -19,6 +19,8 @@ class CreateSchedulesTable extends Migration
             $table->text('message');
             $table->text('attachments')->nullable();
             $table->dateTime('when');
+            $table->integer('user_id');
+            $table->integer('job_id')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

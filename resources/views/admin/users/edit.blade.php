@@ -14,7 +14,7 @@
     <div class="col-md-4 col-xs-12">
         <div class="white-box">
             <form action="{{ route('admin.users.update', $user->id) }}" class="form-horizontal form-material" method="POST">
-                @method('PATCH')
+                @csrf @method('PATCH')
 
                 <div class="form-group">
                     <label class="col-md-12" for="name">
@@ -77,20 +77,21 @@
                 </div>
 
                 @can('manage-users')
-                <div class="form-group">
-                    <label class="col-sm-12">{{ __('users.roles') }}</label>
-                    <div class="col-sm-12">
-                        @foreach($roles as $role)
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" name="roles[]" type="checkbox" value="{{ $role->id }}"
-                                           @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                                    {{ __('users.' . $role->name) }}
-                                </label>
-                            </div>
-                        @endforeach
+                    <div class="form-group">
+                        <label class="col-sm-12">{{ __('users.roles') }}</label>
+
+                        <div class="col-sm-12">
+                            @foreach($roles as $role)
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" name="roles[]" type="checkbox" value="{{ $role->id }}"
+                                               @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                                        {{ __('users.' . $role->name) }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 @endcan
 
                 <div class="form-group">
@@ -100,8 +101,6 @@
                         </button>
                     </div>
                 </div>
-
-                @csrf
             </form>
         </div>
     </div>

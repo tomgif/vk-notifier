@@ -28,9 +28,9 @@
                             }}
                         </div>
 
-                        @if ($subscriptions)
+                        @if ($subscriptions->count())
                             <div class="panel-body">
-                                <ul class="chatonline row">
+                                <ul class="chat-online row">
                                     @foreach($subscriptions as $subscription)
                                         <li class="col-sm-3">
                                             <a href="javascript:void(0)">
@@ -38,15 +38,14 @@
                                                      alt="user-img" class="img-circle">
 
                                                 <span>
-                                                {{ $subscription->external_fields['first_name'] }}
-                                                    {{ $subscription->external_fields['last_name'] }}
+                                                    {{ $subscription->external_fields['first_name'] }} {{ $subscription->external_fields['last_name'] }}
 
                                                     @if($subscription->is_subscribed)
                                                         <small class="text-success">
-                                                        {{ __('subscriptions.index.is_subscribed')  }}
-                                                    </small>
+                                                            {{ __('subscriptions.index.is_subscribed')  }}
+                                                        </small>
                                                     @endif
-                                        </span>
+                                                </span>
                                             </a>
                                         </li>
                                     @endforeach

@@ -15,8 +15,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "vkcom/vk-php-sdk": "^5.101",
-        "symfony/translation": "4.3.8",
-        "ext-http": "*"
+        "symfony/translation": "4.3.8"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
@@ -25,7 +24,8 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "laravelrus/localized-carbon": "1.*"
     },
     "config": {
         "optimize-autoloader": true,

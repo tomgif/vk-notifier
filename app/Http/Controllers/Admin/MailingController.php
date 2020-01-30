@@ -9,7 +9,6 @@ use VK\Client\VKApiClient;
 
 class MailingController extends Controller
 {
-    protected $imageUploadService = null;
     protected $vkApiClient = null;
 
     public function __construct(VKApiClient $vkApiClient)

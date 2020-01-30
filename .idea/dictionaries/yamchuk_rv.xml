@@ -2,6 +2,7 @@
   <dictionary name="yamchuk_rv">
     <words>
       <w>filepond</w>
+      <w>flatpickr</w>
     </words>
   </dictionary>
 </component>

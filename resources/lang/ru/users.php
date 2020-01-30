@@ -16,6 +16,7 @@ return [
     'manage-users' => 'Пользователи',
     'manage-subscriptions' => 'Подписки',
     'manage-mailing' => 'Рассылки',
+    'manage-schedules' => 'Отложенные рассылки',
 
     'index.title' => 'Управление пользователями',
     'index.breadcrumb' => 'Управление пользователями',

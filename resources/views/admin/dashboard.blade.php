@@ -53,20 +53,18 @@
 
             @push('head')
                 <link href="{{ asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
-                <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}"
-                      rel="stylesheet">
+                <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
             @endpush
 
             @push('footer')
                 <script src="{{ asset('ample/plugins/filepond/filepond.min.js') }}"></script>
-                <script
-                    src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+                <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
                 <script>
                     FilePond.registerPlugin(FilePondPluginImagePreview);
                     FilePond.create(document.getElementById('attachments'), {
                         server: '{{ route('api.upload.vk') }}',
 
-                        labelIdle: '{{ __('dashboard.labelIdle') }}',
+                        labelIdle: '{!! __('dashboard.labelIdle') !!}',
                         labelInvalidField: '{{ __('dashboard.labelInvalidField') }}',
                         labelFileWaitingForSize: '{{ __('dashboard.labelFileWaitingForSize') }}',
                         labelFileSizeNotAvailable: '{{ __('dashboard.labelFileSizeNotAvailable') }}',
@@ -99,53 +97,27 @@
                     Расписание рассылок
                 </div>
 
-                <div class="panel-body">
-                    <div class="comment-center">
-                        <div class="comment-body">
-                            <div class="mail-content" style="padding-left: 0;">
-                                <h5>Pavan kumar</h5><span class="time">10:20 AM   20  may 2016</span>
+                @if ($schedules->count())
+                    <div class="panel-body">
+                        <div class="comment-center">
+                            @foreach($schedules as $schedule)
+                                <div class="comment-body">
+                                    <div class="mail-content" style="padding-left: 0;">
+                                        <h5>{{ $schedule->name }}</h5>
 
-                                <br>
+                                        <span class="time">
+                                            {!! $schedule->formattedWhen() !!} - cоздатель: <strong>{{ $schedule->user->name }}</strong>
+                                        </span>
 
-                                <span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span>
-
-                                <a href="javascript:void(0);" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="fa fa-check text-success"></i>
-                                </a>
-
-                                <a href="javascript:void(0);" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="fa fa-pencil text-info"></i>
-                                </a>
-
-                                <a href="javascript:void(0);" class="btn-rounded btn btn-default btn-outline">
-                                    <i class="fa fa-close text-danger"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="comment-body">
-                            <div class="mail-content" style="padding-left: 0;">
-                                <h5>Pavan kumar</h5><span class="time">10:20 AM   20  may 2016</span>
-
-                                <br>
-
-                                <span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span>
-
-                                <a href="javascript:void(0);" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="fa fa-check text-success"></i>
-                                </a>
-
-                                <a href="javascript:void(0);" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                    <i class="fa fa-pencil text-info"></i>
-                                </a>
-
-                                <a href="javascript:void(0);" class="btn-rounded btn btn-default btn-outline">
-                                    <i class="fa fa-close text-danger"></i>
-                                </a>
-                            </div>
+                                        <span class="mail-desc">
+                                            {{ $schedule->message }}
+                                        </span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

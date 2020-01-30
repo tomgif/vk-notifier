@@ -27,7 +27,7 @@ class ScheduleStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'message' => 'required|string',
-            'when' => 'required|date_format:"Y-m-d H:i:s"|after:"' .  \Carbon\Carbon::now() . '"'
+            'when' => 'required|date_format:"Y-m-d H:i"|after:"' .  \Carbon\Carbon::now() . '"'
         ];
     }
 

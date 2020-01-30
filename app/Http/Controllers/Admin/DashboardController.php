@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Schedule;
 use VK\Client\VKApiClient;
 
 class DashboardController extends Controller
@@ -29,6 +30,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $schedules = Schedule::orderBy('when', 'asc')->take(3)->get();
+
+        return view('admin.dashboard', compact('schedules'));
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleStoreRequest;
 use App\Schedule;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SchedulesController extends Controller
 {
@@ -43,6 +43,7 @@ class SchedulesController extends Controller
         $schedule->name = $request->name;
         $schedule->message = $request->message;
         $schedule->when = $request->when;
+        $schedule->user_id = Auth::user()->id;
         $schedule->save();
 
         return redirect()->route('admin.schedules.index')

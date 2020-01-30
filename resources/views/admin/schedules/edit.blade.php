@@ -1,23 +1,24 @@
 @extends('layouts.app')
 
 @section('page-title')
-    {{ __('schedules.edit.heading') }}
+    {{ __('schedules.edit.heading', ['no' => $schedule->id]) }}
 @endsection
 
-@section('navigation')
+@push('navigation')
     <li class="active">
         {{ __('schedules.edit.breadcrumb') }}
     </li>
-@endsection
+@endpush
 
 @section('content')
     <div class="col-md-6 col-xs-12">
         <div class="white-box">
             <form action="{{ route('admin.schedules.update', $schedule->id) }}" class="form-horizontal form-material" method="POST">
-                @method('PUT')
+                @csrf @method('PUT')
+
                 <div class="form-group">
                     <label class="col-md-12" for="when">
-                        Дата рассылки (по МСК)
+                        {{ __('schedules.when') }}
                     </label>
 
                     <div class="col-md-12">
@@ -34,11 +35,11 @@
 
                 <div class="form-group">
                     <label class="col-md-12" for="name">
-                        Тема рассылки
+                        {{ __('schedules.name') }}
                     </label>
 
                     <div class="col-md-12">
-                        <input id="name" name="name" type="text" placeholder="Оповещение о событии"
+                        <input id="name" name="name" type="text" placeholder="{{ __('schedules.name.placeholder') }}"
                                class="form-control form-control-line{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                value="{{ $schedule->name }}" required autofocus>
 
@@ -51,13 +52,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-12" for="email">
-                        Сообщение
+                    <label class="col-md-12" for="message">
+                        {{ __('schedules.message') }}
                     </label>
 
                     <div class="col-md-12">
                         <textarea id="message" name="message" rows="5"
-                                  placeholder="Напишите что произошло"
+                                  placeholder="{{ __('schedules.message.placeholder') }}"
                                   class="form-control form-control-line" required
                                   style="resize: none">{{ $schedule->message }}</textarea>
 
@@ -72,11 +73,10 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <button class="btn btn-success pull-right">
-                            Обновить
+                            {{ __('schedules.edit.update') }}
                         </button>
                     </div>
                 </div>
-                @csrf
             </form>
         </div>
 
@@ -84,7 +84,7 @@
             <div class="panel-body">
                 <a class="btn btn-danger" href="javascript:void(0);"
                    onclick="document.getElementById('delete-schedule').submit()">
-                    Удалить
+                    {{ __('schedules.edit.delete') }}
                 </a>
             </div>
 
@@ -106,7 +106,7 @@
         flatpickr(document.getElementById('when'), {
             locale: '{{ Config::get('app.locale') }}',
             enableTime: true,
-            dateFormat: 'Y-m-d H:i:S',
+            dateFormat: 'Y-m-d H:i',
             minDate: '{{ Carbon\Carbon::now()->addMinutes(5) }}'
         });
     </script>

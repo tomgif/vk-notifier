@@ -5,29 +5,14 @@ namespace App\Jobs;
 use App\Schedule;
 use App\Subscription;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 use VK\Client\VKApiClient;
 
 class ProcessSchedule implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /** @var Schedule */
-    protected $schedule;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(Schedule $schedule)
-    {
-        $this->schedule = $schedule;
-    }
+    use Dispatchable, InteractsWithQueue, Queueable;
 
     /**
      * Execute the job.
@@ -50,7 +35,14 @@ class ProcessSchedule implements ShouldQueue
      */
     public function handle(VKApiClient $vkApiClient)
     {
+        $schedule = Schedule::where('job_id', $this->job->getJobId())->first();
+
         $attachments = [];
+
+        foreach (json_decode($schedule->attachments, true) as $file) {
+            $uploadedImage = json_decode($file, true)[0];
+            $attachments[] = 'photo' . $uploadedImage['owner_id'] . '_' . $uploadedImage['id'];
+        }
 
         $subscribers = Subscription::where('is_subscribed', true)
             ->pluck('peer_id')
@@ -67,11 +59,12 @@ class ProcessSchedule implements ShouldQueue
             $vkApiClient->messages()->send(env('VK_API_TOKEN'), [
                 'user_ids' => array_column($members->toArray(), 'user_id'),
                 'random_id' => rand(),
-                'message' => $this->schedule->message,
+                'message' => $schedule->message,
                 'attachment' => implode(',', $attachments)
             ]);
 
-            $this->schedule->delete();
+            $schedule->status = 1;
+            $schedule->save();
         }
     }
 }

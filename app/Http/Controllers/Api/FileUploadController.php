@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 class FileUploadController extends Controller
 {
     protected $imageUploadService = null;
-    protected $vkApiClient = null;
 
     public function __construct(ImageUploadService $imageUploadService)
     {
@@ -39,5 +38,27 @@ class FileUploadController extends Controller
     {
         //may be rollback something
         return response(['success' => true]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function load(Request $request)
+    {
+        /**
+         * Todo: move to imageUploadService
+         */
+        $externalFile = collect(
+            json_decode($request->load, true)[0]['sizes']
+        )->last();
+
+        $response = (new \GuzzleHttp\Client)
+            ->get($externalFile['url']);
+
+        $file = $response->getBody()->getContents();
+        $contentType = $response->getHeader('Content-type');
+
+        return response($file)->header('Content-type', $contentType[0]);
     }
 }

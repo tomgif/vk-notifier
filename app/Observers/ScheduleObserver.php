@@ -13,7 +13,7 @@ class ScheduleObserver
 
     public function pushJob(Schedule $schedule)
     {
-        $job = new ProcessSchedule($schedule);
+        $job = new ProcessSchedule;
         $job->onQueue('schedules')
             ->delay(Carbon::parse($schedule->when));
         return $this->dispatch($job);
@@ -38,8 +38,10 @@ class ScheduleObserver
      */
     public function updating(Schedule $schedule)
     {
-        $schedule->job()->delete();
-        $this->creating($schedule);
+        if (!$schedule->status) {
+            $schedule->job()->delete();
+            $this->creating($schedule);
+        }
     }
 
     /**

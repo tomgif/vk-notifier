@@ -28,7 +28,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         ->middleware('can:manage-subscriptions')
         ->only(['index', 'store', 'update']);
 
-    Route::resource('/users', 'UsersController')
+    Route::resource('/users', 'UserController')
         ->middleware('can:manage-users')
         ->only(['index', 'edit', 'update', 'destroy']);
 
@@ -36,7 +36,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         ->middleware('can:manage-mailing')
         ->name('mailing.send');
 
-    Route::resource('/schedules', 'SchedulesController')
+    Route::resource('/schedules', 'ScheduleController')
         ->middleware('can:manage-schedules')
         ->except(['show']);
 });

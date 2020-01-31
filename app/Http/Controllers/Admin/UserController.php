@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
-     * UsersController constructor.
+     * UserController constructor.
      */
     public function __construct()
     {

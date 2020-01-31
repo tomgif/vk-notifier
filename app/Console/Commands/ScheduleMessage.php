@@ -39,6 +39,7 @@ class ScheduleMessage extends Command
     {
         return $this->call('queue:work', [
             '--queue' => 'schedules',
+            '--tries' => 1,
             '--stop-when-empty' => null,
         ]);
     }

@@ -7,7 +7,7 @@ use App\Http\Requests\ScheduleStoreRequest;
 use App\Schedule;
 use Illuminate\Support\Facades\Auth;
 
-class SchedulesController extends Controller
+class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,13 @@ class SchedulesController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::orderBy('when', 'asc')->paginate(5);
+        /**
+         * Todo: move to model or repository
+         */
+        $activeSchedules = Schedule::where('completed', 0)->orderBy('when', 'asc')->paginate(5, ['*'], 'active');
+        $completedSchedules = Schedule::where('completed', 1)->orderBy('when', 'desc')->paginate(5, ['*'], 'history');
 
-        return view('admin.schedules.index', compact('schedules'));
+        return view('admin.schedules.index', compact('activeSchedules', 'completedSchedules'));
     }
 
     /**
@@ -39,15 +43,13 @@ class SchedulesController extends Controller
      */
     public function store(ScheduleStoreRequest $request)
     {
-        $schedule = new Schedule;
-        $schedule->name = $request->name;
-        $schedule->message = $request->message;
-        $schedule->when = $request->when;
-        $schedule->user_id = Auth::user()->id;
-        $schedule->save();
+        Schedule::create($request->all() + [
+                'user_id' => Auth::user()->id,
+                'attachments' => collect($request->input('files'))->toJson() ?? null
+            ]);
 
         return redirect()->route('admin.schedules.index')
-                ->with('success', __('schedules.create.success'));
+            ->with('success', __('schedules.create.success'));
     }
 
     /**
@@ -70,9 +72,9 @@ class SchedulesController extends Controller
      */
     public function update(ScheduleStoreRequest $request, Schedule $schedule)
     {
-        $schedule->name = $request->name;
-        $schedule->message = $request->message;
-        $schedule->when = $request->when;
+        $schedule->fill($request->all() + [
+                'attachments' => collect($request->input('files'))->toJson() ?? null
+            ]);
 
         if ($schedule->isDirty()) {
             $schedule->save();

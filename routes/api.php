@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('catch', 'Api\VKCallbackController@catch');
 Route::post('upload', 'Api\FileUploadController@uploadFile2VK')->name('api.upload.vk');
+Route::get('upload', 'Api\FileUploadController@load')->name('api.load.vk');
 Route::delete('upload', 'Api\FileUploadController@deleteFileFromVK')->name('api.delete.vk');

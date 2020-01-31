@@ -21,7 +21,7 @@ class CreateSchedulesTable extends Migration
             $table->dateTime('when');
             $table->integer('user_id');
             $table->integer('job_id')->nullable();
-            $table->integer('status')->default(0);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

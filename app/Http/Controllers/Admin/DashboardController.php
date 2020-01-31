@@ -30,7 +30,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::orderBy('when', 'asc')->take(3)->get();
+        $schedules = Schedule::where('completed', false)->orderBy('when', 'asc')->take(3)->get();
 
         return view('admin.dashboard', compact('schedules'));
     }

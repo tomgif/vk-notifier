@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'message', 'when', 'user_id', 'attachments'];
+
     public function job()
     {
         return $this->belongsTo(\App\Job::class, 'job_id');

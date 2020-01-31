@@ -49,6 +49,24 @@
                             </span>
                         @endif
                     </div>
+
+                    @push('head')
+                        <link href="{{ asset('ample/plugins/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+                    @endpush
+
+                    @push('footer')
+                        <script src="{{ asset('ample/plugins/flatpickr/flatpickr.js') }}"></script>
+                        <script src="{{ asset('ample/plugins/flatpickr/' . Config::get('app.locale') . '.js') }}"></script>
+                        <script>
+                            flatpickr(document.getElementById('when'), {
+                                locale: '{{ Config::get('app.locale') }}',
+                                enableTime: true,
+                                dateFormat: 'Y-m-d H:i:S',
+                                defaultDate: '{{ Carbon\Carbon::now()->addMinutes(1) }}',
+                                minDate: '{{ Carbon\Carbon::now()->addMinutes(1) }}'
+                            });
+                        </script>
+                    @endpush
                 </div>
 
                 <div class="form-group">
@@ -72,6 +90,57 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
+                        <input type="file"
+                               id="attachments"
+                               name="files[]"
+                               multiple
+                               data-allow-reorder="true"
+                               data-max-file-size="3MB"
+                               data-max-files="3">
+                    </div>
+
+                    @push('head')
+                        <link href="{{ asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
+                        <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
+                    @endpush
+
+                    @push('footer')
+                        <script src="{{ asset('ample/plugins/filepond/filepond.min.js') }}"></script>
+                        <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+                        <script>
+                            FilePond.registerPlugin(FilePondPluginImagePreview);
+                            FilePond.create(document.getElementById('attachments'), {
+                                server: '{{ route('api.upload.vk') }}',
+
+                                labelIdle: '{!! __('dashboard.labelIdle') !!}',
+                                labelInvalidField: '{{ __('dashboard.labelInvalidField') }}',
+                                labelFileWaitingForSize: '{{ __('dashboard.labelFileWaitingForSize') }}',
+                                labelFileSizeNotAvailable: '{{ __('dashboard.labelFileSizeNotAvailable') }}',
+                                labelFileLoading: '{{ __('dashboard.labelFileLoading') }}',
+                                labelFileLoadError: '{{ __('dashboard.labelFileLoadError') }}',
+                                labelFileProcessing: '{{ __('dashboard.labelFileProcessing') }}',
+                                labelFileProcessingComplete: '{{ __('dashboard.labelFileProcessingComplete') }}',
+                                labelFileProcessingAborted: '{{ __('dashboard.labelFileProcessingAborted') }}',
+                                labelFileProcessingError: '{{ __('dashboard.labelFileProcessingError') }}',
+                                labelFileProcessingRevertError: '{{ __('dashboard.labelFileProcessingRevertError') }}',
+                                labelFileRemoveError: '{{ __('dashboard.labelFileRemoveError') }}',
+                                labelTapToCancel: '{{ __('dashboard.labelTapToCancel') }}',
+                                labelTapToRetry: '{{ __('dashboard.labelTapToRetry') }}',
+                                labelTapToUndo: '{{ __('dashboard.labelTapToUndo') }}',
+                                labelButtonRemoveItem: '{{ __('dashboard.labelButtonRemoveItem') }}',
+                                labelButtonAbortItemLoad: '{{ __('dashboard.labelButtonAbortItemLoad') }}',
+                                labelButtonRetryItemLoad: '{{ __('dashboard.labelButtonRetryItemLoad') }}',
+                                labelButtonAbortItemProcessing: '{{ __('dashboard.labelButtonAbortItemProcessing') }}',
+                                labelButtonUndoItemProcessing: '{{ __('dashboard.labelButtonUndoItemProcessing') }}',
+                                labelButtonRetryItemProcessing: '{{ __('dashboard.labelButtonRetryItemProcessing') }}',
+                                labelButtonProcessItem: '{{ __('dashboard.labelButtonProcessItem') }}'
+                            });
+                        </script>
+                    @endpush
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
                         <button class="btn btn-success pull-right">
                             {{ __('schedules.create.submit') }}
                         </button>
@@ -81,21 +150,3 @@
         </div>
     </div>
 @endsection
-
-@push('head')
-    <link href="{{ asset('ample/plugins/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
-@endpush
-
-@push('footer')
-    <script src="{{ asset('ample/plugins/flatpickr/flatpickr.js') }}"></script>
-    <script src="{{ asset('ample/plugins/flatpickr/' . Config::get('app.locale') . '.js') }}"></script>
-    <script>
-        flatpickr(document.getElementById('when'), {
-            locale: '{{ Config::get('app.locale') }}',
-            enableTime: true,
-            dateFormat: 'Y-m-d H:i',
-            defaultDate: '{{ Carbon\Carbon::now()->addMinutes(5) }}',
-            minDate: '{{ Carbon\Carbon::now()->addMinutes(5) }}'
-        });
-    </script>
-@endpush

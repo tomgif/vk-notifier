@@ -26,7 +26,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
 
     Route::resource('/subscriptions', 'SubscriptionController')
         ->middleware('can:manage-subscriptions')
-        ->only(['index', 'store', 'update']);
+        ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('/users', 'UserController')
         ->middleware('can:manage-users')

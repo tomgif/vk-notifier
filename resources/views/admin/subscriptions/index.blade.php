@@ -11,6 +11,8 @@
 @endpush
 
 @section('content')
+    @include('partials.messages')
+
     <div class="row">
         <div class="col-sm-12">
             <div class="panel">
@@ -33,6 +35,30 @@
                                 <ul class="chat-online row">
                                     @foreach($subscriptions as $subscription)
                                         <li class="col-sm-3">
+                                            <div class="call-chat">
+                                                <form action="{{ route('admin.subscriptions.update', $subscription->id) }}" method="post" style="display: inline-block;">
+                                                    @csrf @method('PATCH')
+
+                                                    <input type="hidden" name="is_subscribed" value="{{ (int)!$subscription->is_subscribed }}">
+
+                                                    <button class="btn btn-success btn-circle btn-sm m-r-5">
+                                                        @if ($subscription->is_subscribed)
+                                                            <i class="fa fa-circle-o"></i>
+                                                        @else
+                                                            <i class="fa fa-circle"></i>
+                                                        @endif
+                                                    </button>
+                                                </form>
+
+                                                <form action="{{ route('admin.subscriptions.destroy', $subscription->id) }}" method="post" style="display: inline-block;">
+                                                    @csrf @method('DELETE')
+
+                                                    <button class="btn btn-danger btn-circle btn-sm m-r-5">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+
                                             <a href="javascript:void(0)">
                                                 <img src="{{ $subscription->external_fields['photo_50'] }}"
                                                      alt="user-img" class="img-circle">

@@ -13,7 +13,7 @@
 @section('content')
     <div class="col-md-6 col-xs-12">
         <div class="white-box">
-            <form action="{{ route('admin.schedules.store') }}" class="form-horizontal form-material" method="POST">
+            <form action="{{ route('admin.schedules.store') }}" class="form-horizontal form-material" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -51,12 +51,12 @@
                     </div>
 
                     @push('head')
-                        <link href="{{ asset('ample/plugins/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+                        <link href="{{ secure_asset('ample/plugins/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
                     @endpush
 
                     @push('footer')
-                        <script src="{{ asset('ample/plugins/flatpickr/flatpickr.js') }}"></script>
-                        <script src="{{ asset('ample/plugins/flatpickr/' . Config::get('app.locale') . '.js') }}"></script>
+                        <script src="{{ secure_asset('ample/plugins/flatpickr/flatpickr.js') }}"></script>
+                        <script src="{{ secure_asset('ample/plugins/flatpickr/' . Config::get('app.locale') . '.js') }}"></script>
                         <script>
                             flatpickr(document.getElementById('when'), {
                                 locale: '{{ Config::get('app.locale') }}',
@@ -100,13 +100,13 @@
                     </div>
 
                     @push('head')
-                        <link href="{{ asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
-                        <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
+                        <link href="{{ secure_asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
+                        <link href="{{ secure_asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
                     @endpush
 
                     @push('footer')
-                        <script src="{{ asset('ample/plugins/filepond/filepond.min.js') }}"></script>
-                        <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+                        <script src="{{ secure_asset('ample/plugins/filepond/filepond.min.js') }}"></script>
+                        <script src="{{ secure_asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
                         <script>
                             FilePond.registerPlugin(FilePondPluginImagePreview);
                             FilePond.create(document.getElementById('attachments'), {
@@ -141,7 +141,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button class="btn btn-success pull-right">
+                        <button id="submit" class="btn btn-success pull-right">
                             {{ __('schedules.create.submit') }}
                         </button>
                     </div>

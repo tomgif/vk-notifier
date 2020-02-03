@@ -3,27 +3,22 @@
 namespace App\Traits;
 
 use App\Subscription;
-use App\Http\Requests\SubscriptionRequest;
+use Illuminate\Http\Request;
 
 trait SubscriptionUpdate
 {
     /**
      * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\SubscriptionRequest $request
-     * @param \App\Subscription $subscription
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @param Subscription $subscription
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SubscriptionRequest $request, Subscription $subscription)
+    public function update(Request $request, Subscription $subscription)
     {
-        $subscription->peer_id = $request->get('peer_id');
-        $subscription->user_id = $request->get('user_id');
-        $subscription->is_subscribed = $request->get('is_subscribed');
+        $subscription->fill($request->all());
+        $subscription->save();
 
-        if ($subscription->isDirty()) {
-            $subscription->save();
-        }
-
-        return redirect('/subscriptions');
+        return redirect()->route('admin.subscriptions.index')
+            ->with('info', __('subscriptions.update.info'));
     }
 }

@@ -38,7 +38,7 @@ class ScheduleObserver
      */
     public function updating(Schedule $schedule)
     {
-        if (!$schedule->status) {
+        if (!$schedule->completed) {
             $schedule->job()->delete();
             $this->creating($schedule);
         }

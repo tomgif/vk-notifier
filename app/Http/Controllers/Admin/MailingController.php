@@ -9,7 +9,10 @@ use VK\Client\VKApiClient;
 
 class MailingController extends Controller
 {
-    protected $vkApiClient = null;
+    /**
+     * @var VKApiClient
+     */
+    protected $vkApiClient;
 
     public function __construct(VKApiClient $vkApiClient)
     {

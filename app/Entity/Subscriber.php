@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Subscription;
+use Illuminate\Support\Facades\Log;
+use VK\Client\VKApiClient;
 
 class Subscriber
 {
@@ -84,5 +86,30 @@ class Subscriber
         }
 
         return false;
+    }
+
+    /**
+     * @param int $groupId
+     * @param int $userId
+     * @return bool
+     * @throws \VK\Exceptions\VKApiException
+     * @throws \VK\Exceptions\VKClientException
+     */
+    public function isMember(int $groupId, int $userId)
+    {
+        return (new VKApiClient)->groups()
+            ->isMember(env('VK_API_TOKEN'), [
+                'group_id' => $groupId,
+                'user_id' => $userId,
+            ]);
+    }
+
+    /**
+     * @param int $peerId
+     * @return bool
+     */
+    public function isConversation(int $peerId)
+    {
+        return $peerId > env('VK_CONVERSATION_START_ID');
     }
 }

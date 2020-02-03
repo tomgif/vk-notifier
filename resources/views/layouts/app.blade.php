@@ -9,17 +9,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <link href="{{ asset('ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/css/animate.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('ample/css/colors/default.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ secure_asset('ample/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('ample/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('ample/css/style.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('ample/css/colors/default.css') }}" id="theme" rel="stylesheet">
 
 @stack('head')
 
 <!--[if lt IE 9]>
-    <script src="{{ asset('ample/js/html5shiv.js') }}"></script>
-    <script src="{{ asset('ample/js/respond.min.js') }}"></script>
+    <script src="{{ secure_asset('ample/js/html5shiv.js') }}"></script>
+    <script src="{{ secure_asset('ample/js/respond.min.js') }}"></script>
     <![endif]-->
 </head>
 
@@ -34,9 +34,9 @@
     <nav class="navbar navbar-default navbar-static-top m-b-0">
         <div class="navbar-header">
             <div class="top-left-part">
-                <a class="logo" href="{{ url('/') }}">
+                <a class="logo" href="{{ secure_url('/') }}">
                     <b>
-                        <img src="{{ asset('ample/images/logo.png') }}" alt="home" class="light-logo"/>
+                        <img src="{{ secure_asset('ample/images/logo.png') }}" alt="home" class="light-logo"/>
                     </b>
 
                     <span class="hidden-xs">
@@ -165,13 +165,13 @@
     @csrf
 </form>
 
-<script src="{{ asset('ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
-<script src="{{ asset('ample/js/jquery.slimscroll.js') }}"></script>
-<script src="{{ asset('ample/js/waves.js') }}"></script>
-<script src="{{ asset('ample/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
-<script src="{{ asset('ample/js/custom.min.js') }}"></script>
+<script src="{{ secure_asset('ample/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('ample/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('ample/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+<script src="{{ secure_asset('ample/js/jquery.slimscroll.js') }}"></script>
+<script src="{{ secure_asset('ample/js/waves.js') }}"></script>
+<script src="{{ secure_asset('ample/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
+<script src="{{ secure_asset('ample/js/custom.min.js') }}"></script>
 
 @stack('footer')
 </body>

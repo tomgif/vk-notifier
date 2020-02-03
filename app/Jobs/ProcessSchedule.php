@@ -63,7 +63,7 @@ class ProcessSchedule implements ShouldQueue
                 'attachment' => implode(',', $attachments)
             ]);
 
-            $schedule->status = 1;
+            $schedule->completed = 1;
             $schedule->save();
         }
     }

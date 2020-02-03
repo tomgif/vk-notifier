@@ -12,7 +12,8 @@ class SubscriptionController extends Controller
 {
     use SubscriptionStore, SubscriptionUpdate;
 
-    protected $vkApiClient = null;
+    /** @var VKApiClient */
+    protected $vkApiClient;
 
     public function __construct(VKApiClient $vkApiClient)
     {
@@ -43,5 +44,13 @@ class SubscriptionController extends Controller
         });
 
         return view('admin.subscriptions.index', compact('subscriptions'));
+    }
+
+    public function destroy(Subscription $subscription)
+    {
+        $subscription->delete();
+
+        return redirect()->route('admin.subscriptions.index')
+            ->with('info', __('subscriptions.destroy.info'));
     }
 }

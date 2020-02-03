@@ -2,27 +2,20 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\SubscriptionRequest;
 use App\Subscription;
+use Illuminate\Http\Request;
 
 trait SubscriptionStore
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param \App\Http\Requests\SubscriptionRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(SubscriptionRequest $request)
+    public function store(Request $request)
     {
-        $subscription = new Subscription;
+        Subscription::create($request->all());
 
-        $subscription->peer_id = $request->get('peer_id');
-        $subscription->user_id = $request->get('user_id');
-        $subscription->is_subscribed = $request->get('is_subscribed');
-
-        $subscription->save();
-
-        return redirect('/subscriptions');
+        return redirect()->route('admin.subscriptions.index');
     }
 }

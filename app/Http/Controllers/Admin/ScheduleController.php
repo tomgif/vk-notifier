@@ -43,10 +43,11 @@ class ScheduleController extends Controller
      */
     public function store(ScheduleStoreRequest $request)
     {
-        Schedule::create($request->all() + [
-                'user_id' => Auth::user()->id,
-                'attachments' => collect($request->input('files'))->toJson() ?? null
-            ]);
+        $files = collect($request->input('files'))->reject(function ($file) {
+            return !$file;
+        });
+
+        Schedule::create($request->all() + ['user_id' => Auth::user()->id, 'attachments' => $files->toJson()]);
 
         return redirect()->route('admin.schedules.index')
             ->with('success', __('schedules.create.success'));
@@ -72,9 +73,11 @@ class ScheduleController extends Controller
      */
     public function update(ScheduleStoreRequest $request, Schedule $schedule)
     {
-        $schedule->fill($request->all() + [
-                'attachments' => collect($request->input('files'))->toJson() ?? null
-            ]);
+        $files = collect($request->input('files'))->reject(function ($file) {
+            return !$file;
+        });
+
+        $schedule->fill($request->all() + ['attachments' => $files->toJson()]);
 
         if ($schedule->isDirty()) {
             $schedule->save();

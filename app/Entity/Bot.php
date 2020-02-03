@@ -38,13 +38,4 @@ class Bot
             'keyboard' => $keyboard->toString()
         ]);
     }
-
-    public function sendSubscribeStatus(Subscriber $subscriber, bool $status)
-    {
-        $this->client->messages()->send(env('VK_API_TOKEN'), [
-            'peer_id' => $subscriber->getPeerId(),
-            'random_id' => rand(),
-            'message' => __($status ? 'bot.subscribe' : 'bot.unsubscribe')
-        ]);
-    }
 }

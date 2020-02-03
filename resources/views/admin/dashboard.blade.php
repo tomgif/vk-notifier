@@ -52,13 +52,13 @@
             </div>
 
             @push('head')
-                <link href="{{ asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
-                <link href="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
+                <link href="{{ secure_asset('ample/plugins/filepond/filepond.min.css') }}" rel="stylesheet">
+                <link href="{{ secure_asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.css') }}" rel="stylesheet">
             @endpush
 
             @push('footer')
-                <script src="{{ asset('ample/plugins/filepond/filepond.min.js') }}"></script>
-                <script src="{{ asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
+                <script src="{{ secure_asset('ample/plugins/filepond/filepond.min.js') }}"></script>
+                <script src="{{ secure_asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
                 <script>
                     FilePond.registerPlugin(FilePondPluginImagePreview);
                     FilePond.create(document.getElementById('attachments'), {

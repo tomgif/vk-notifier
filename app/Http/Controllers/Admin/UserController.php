@@ -6,7 +6,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
+use Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +22,6 @@ class UserController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -34,12 +33,14 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
      * @param \App\User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         $roles = Role::all();
 
         return view('admin.users.edit', compact('user', 'roles'));
@@ -47,10 +48,10 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param UserUpdateRequest $request
      * @param \App\User $user
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UserUpdateRequest $request, User $user)
     {
@@ -61,15 +62,13 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-
         $user->save();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->back()->with('info', __('users.update.success'));
     }
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param \App\User $user
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception

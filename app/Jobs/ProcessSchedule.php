@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Entity\Keyboard;
 use App\Schedule;
 use App\Subscription;
 use Illuminate\Bus\Queueable;
@@ -16,7 +17,6 @@ class ProcessSchedule implements ShouldQueue
 
     /**
      * Execute the job.
-     *
      * @param VKApiClient $vkApiClient
      * @throws \VK\Exceptions\Api\VKApiMessagesCantFwdException
      * @throws \VK\Exceptions\Api\VKApiMessagesChatBotFeatureException
@@ -60,10 +60,11 @@ class ProcessSchedule implements ShouldQueue
                 'user_ids' => array_column($members->toArray(), 'user_id'),
                 'random_id' => rand(),
                 'message' => $schedule->message,
-                'attachment' => implode(',', $attachments)
+                'attachment' => implode(',', $attachments),
+                //'keyboard' => (new Keyboard())->setInline()->setPrimaryLink('Посетить сайт', 'http://reincarnation.su')->toString()
             ]);
 
-            $schedule->completed = 1;
+            $schedule->completed = true;
             $schedule->save();
         }
     }

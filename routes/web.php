@@ -28,9 +28,17 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
         ->middleware('can:manage-subscriptions')
         ->only(['index', 'store', 'update', 'destroy']);
 
+    Route::get('/subscriptions/fetch', 'SubscriptionController@fetch')
+        ->middleware('can:manage-subscriptions')
+        ->name('subscriptions.fetch');
+
     Route::resource('/users', 'UserController')
         ->middleware('can:manage-users')
-        ->only(['index', 'edit', 'update', 'destroy']);
+        ->only(['index', 'destroy']);
+
+    Route::resource('/users', 'UserController')
+        ->middleware('can:update,user')
+        ->only(['edit', 'update']);
 
     Route::post('/mailing', 'MailingController@send')
         ->middleware('can:manage-mailing')

@@ -11,7 +11,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -22,7 +21,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
     protected $hidden = [
@@ -32,7 +30,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
-     *
      * @var array
      */
     protected $casts = [
@@ -71,5 +68,13 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function getRoleNamesAttribute()
+    {
+        return $this->roles()->pluck('name')
+            ->map(function ($name) {
+                return __('users.' . $name);
+            })->sort()->implode(', ');
     }
 }

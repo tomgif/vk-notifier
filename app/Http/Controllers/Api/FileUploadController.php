@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 
 class FileUploadController extends Controller
 {
-    protected $imageUploadService = null;
+    /** @var ImageUploadService */
+    protected $imageUploadService;
 
     public function __construct(ImageUploadService $imageUploadService)
     {

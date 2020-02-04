@@ -33,11 +33,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>
-                                    {{ implode(', ', $user->roles->pluck('name')->map(function ($name) {
-                                        return __('users.' . $name);
-                                    })->toArray()) }}
-                                </td>
+                                <td>{{ $user->roleNames }}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td class="txt-oflo">
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary">

@@ -8,8 +8,10 @@ use VK\Client\VKApiClient;
 
 class ImageUploadService
 {
-    protected $vkApiClient = null;
+    /** @var VKApiClient */
+    protected $vkApiClient;
 
+    /** @var string */
     protected $token;
 
     public function __construct(VKApiClient $vkApiClient)

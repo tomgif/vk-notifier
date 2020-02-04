@@ -11,14 +11,12 @@
 @endpush
 
 @section('content')
-    @include('partials.messages')
-
     <div class="row">
         <div class="col-sm-12">
             <div class="panel">
                 <div class="sk-chat-widgets">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading clearfix">
                             {{
                                 trans_choice(
                                     'subscriptions.index.subscribers_no',
@@ -28,6 +26,14 @@
                                     ]
                                 )
                             }}
+
+                            <div class="btn-group pull-right">
+                                <a href="{{ route('admin.subscriptions.fetch') }}"
+                                   class="btn btn-primary waves-effect waves-light">
+                                    <i class="fa fa-plus m-r-5"></i>
+                                    Запросить
+                                </a>
+                            </div>
                         </div>
 
                         @if ($subscriptions->count())
@@ -59,7 +65,7 @@
                                                 </form>
                                             </div>
 
-                                            <a href="javascript:void(0)">
+                                            <a href="https://vk.com/{{ $subscription->external_fields['domain'] }}">
                                                 <img src="{{ $subscription->external_fields['photo_50'] }}"
                                                      alt="user-img" class="img-circle">
 

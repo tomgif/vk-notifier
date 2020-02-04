@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Subscription;
-use Illuminate\Support\Facades\Log;
 use VK\Client\VKApiClient;
 
 class Subscriber

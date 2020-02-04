@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Entity\Bot;
 use App\Entity\Subscriber;
-use Illuminate\Support\Facades\Log;
 
 class VKCallbackController extends BaseApiController
 {

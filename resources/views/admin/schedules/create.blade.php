@@ -62,8 +62,8 @@
                                 locale: '{{ Config::get('app.locale') }}',
                                 enableTime: true,
                                 dateFormat: 'Y-m-d H:i:S',
-                                defaultDate: '{{ Carbon\Carbon::now()->addMinutes(1) }}',
-                                minDate: '{{ Carbon\Carbon::now()->addMinutes(1) }}'
+                                defaultDate: '{{ Carbon\Carbon::now()->addMinutes(5) }}',
+                                minDate: '{{ Carbon\Carbon::now()->addMinutes(5) }}'
                             });
                         </script>
                     @endpush
@@ -109,7 +109,7 @@
                         <script src="{{ secure_asset('ample/plugins/filepond/plugins/filepond-plugin-image-preview.min.js') }}"></script>
                         <script>
                             FilePond.registerPlugin(FilePondPluginImagePreview);
-                            FilePond.create(document.getElementById('attachments'), {
+                            var pond = FilePond.create(document.getElementById('attachments'), {
                                 server: '{{ route('api.upload.vk') }}',
 
                                 labelIdle: '{!! __('dashboard.labelIdle') !!}',
@@ -133,8 +133,28 @@
                                 labelButtonAbortItemProcessing: '{{ __('dashboard.labelButtonAbortItemProcessing') }}',
                                 labelButtonUndoItemProcessing: '{{ __('dashboard.labelButtonUndoItemProcessing') }}',
                                 labelButtonRetryItemProcessing: '{{ __('dashboard.labelButtonRetryItemProcessing') }}',
-                                labelButtonProcessItem: '{{ __('dashboard.labelButtonProcessItem') }}'
+                                labelButtonProcessItem: '{{ __('dashboard.labelButtonProcessItem') }}',
+
+                                onaddfilestart: file => isLoadingCheck(),
+                                onprocessfile: file => isLoadingCheck(),
                             });
+
+                            let isLoadingCheck = function () {
+                                const STATUS_COMPLETE = 5;
+                                let message;
+                                let isLoading = pond.getFiles().filter(x => x.status !== STATUS_COMPLETE).length;
+                                let submitButton = document.getElementById('submit');
+
+                                if (isLoading !== 0) {
+                                    submitButton.setAttribute('disabled', 'disabled');
+                                    message = '{{ __('schedules.loading.files') }}';
+                                } else {
+                                    submitButton.removeAttribute('disabled');
+                                    message = '{{ __('schedules.create.submit') }}';
+                                }
+
+                                submitButton.innerText = message;
+                            }
                         </script>
                     @endpush
                 </div>

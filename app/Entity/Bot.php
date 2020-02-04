@@ -24,8 +24,6 @@ class Bot
             $keyboard->setPositiveButton(__('keyboard.subscribe'), ['command' => 'subscribe']);
         }
 
-        //extra buttons can be added here
-
         $this->sendStartMessage($subscriber, $keyboard);
     }
 

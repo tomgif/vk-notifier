@@ -21,7 +21,6 @@ class ScheduleObserver
 
     /**
      * Handle the schedule "created" event.
-     *
      * @param \App\Schedule $schedule
      * @return void
      */
@@ -32,7 +31,6 @@ class ScheduleObserver
 
     /**
      * Handle the schedule "updated" event.
-     *
      * @param \App\Schedule $schedule
      * @return void
      */
@@ -46,7 +44,6 @@ class ScheduleObserver
 
     /**
      * Handle the schedule "deleted" event.
-     *
      * @param \App\Schedule $schedule
      * @return void
      */

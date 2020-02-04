@@ -85,8 +85,23 @@
                         labelButtonAbortItemProcessing: '{{ __('dashboard.labelButtonAbortItemProcessing') }}',
                         labelButtonUndoItemProcessing: '{{ __('dashboard.labelButtonUndoItemProcessing') }}',
                         labelButtonRetryItemProcessing: '{{ __('dashboard.labelButtonRetryItemProcessing') }}',
-                        labelButtonProcessItem: '{{ __('dashboard.labelButtonProcessItem') }}'
+                        labelButtonProcessItem: '{{ __('dashboard.labelButtonProcessItem') }}',
+
+                        onaddfilestart: file => isLoadingCheck(),
+                        onprocessfile: file => isLoadingCheck()
                     });
+
+                    let isLoadingCheck = function () {
+                        const STATUS_COMPLETE = 5;
+                        let isLoading = pond.getFiles().filter(x => x.status !== STATUS_COMPLETE).length;
+                        let submitButton = document.getElementById('submit');
+
+                        if (isLoading !== 0) {
+                            submitButton.setAttribute('disabled', 'disabled');
+                        } else {
+                            submitButton.removeAttribute('disabled');
+                        }
+                    }
                 </script>
             @endpush
         @endcan

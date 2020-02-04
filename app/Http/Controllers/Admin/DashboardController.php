@@ -12,7 +12,6 @@ class DashboardController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @param VKApiClient $vkApiClient
      */
     public function __construct(VKApiClient $vkApiClient)
@@ -22,7 +21,6 @@ class DashboardController extends Controller
 
     /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      * @throws \VK\Exceptions\Api\VKApiMessagesDenySendException
      * @throws \VK\Exceptions\VKApiException
@@ -30,7 +28,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::where('completed', false)->orderBy('when', 'asc')->take(3)->get();
+        $schedules = Schedule::isCompleted(false)->orderBy('when', 'asc')->take(3)->get();
 
         return view('admin.dashboard', compact('schedules'));
     }

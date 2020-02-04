@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use http\Exception\InvalidArgumentException;
-
 class Keyboard
 {
     protected $keyboard = [];
@@ -37,12 +35,13 @@ class Keyboard
      * @param string $color
      * @param array|null $payload
      * @param string $type
+     * @param string $link
      * @return $this
      */
     protected function setButton(string $label, string $color = 'primary', array $payload = null, string $type = 'text')
     {
         if (!$label) {
-            throw new InvalidArgumentException('label');
+            throw new \InvalidArgumentException('label');
         }
 
         $button = ['color' => $color, 'action' => ['type' => $type, 'label' => $label]];
@@ -52,6 +51,33 @@ class Keyboard
         }
 
         $this->keyboard['buttons'][] = [$button];
+
+        return $this;
+    }
+
+    /**
+     * @param string $label
+     * @param string $link
+     * @param array|null $payload
+     * @return $this
+     */
+    protected function setLink(string $label, string $link, array $payload = null)
+    {
+        if (!$label) {
+            throw new \InvalidArgumentException('label');
+        }
+
+        if (!$link) {
+            throw new \InvalidArgumentException('link');
+        }
+
+        $link = ['action' => ['type' => 'open_link', 'label' => $label, 'link' => $link]];
+
+        if ($payload) {
+            $link['action']['payload'] = json_encode($payload);
+        }
+
+        $this->keyboard['buttons'][] = [$link];
 
         return $this;
     }
@@ -97,6 +123,12 @@ class Keyboard
     public function setSecondaryButton(string $label, array $payload = null)
     {
         $this->setButton($label, 'secondary', $payload);
+        return $this;
+    }
+
+    public function setPrimaryLink(string $label, string $link, $payload = null)
+    {
+        $this->setLink($label, $link, $payload);
         return $this;
     }
 

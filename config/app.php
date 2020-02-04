@@ -174,9 +174,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         App\Providers\ImageUploadServiceProvider::class,
         App\Providers\VKApiClientProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        App\Providers\VKGroupServiceProvider::class,
     ],
 
     /*

@@ -113,7 +113,7 @@
                     </li>
                 @endcan
 
-                @can('manage-subscriptions')
+                @can('manage-schedules')
                     <li>
                         <a href="{{ route('admin.schedules.index') }}" class="waves-effect">
                             <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
